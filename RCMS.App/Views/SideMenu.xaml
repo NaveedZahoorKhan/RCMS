@@ -1,0 +1,48 @@
+﻿<UserControl
+    x:Class="RCMS.App.Views.SideMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <StackPanel>
+        <ToggleButton Command="{Binding HamburgerOpened}" Style="{DynamicResource MaterialDesignHamburgerToggleButton}" />
+        <StackPanel
+            Margin="0,0,0,240"
+            Orientation="Vertical"
+            Visibility="{Binding SideMenuWidth, Converter={StaticResource BoolToVisibilityConverter}}">
+            <TextBlock
+                Width="240"
+                Height="60"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                FontSize="42"
+                Text="RCMS" />
+            <Separator />
+            <TextBlock
+                Width="90"
+                FontSize="32"
+                Text="ModA" />
+            <Separator />
+            <TextBlock
+                Width="90"
+                FontSize="32"
+                Text="ModA" />
+            <Separator />
+            <TextBlock
+                Width="90"
+                FontSize="32"
+                Text="ModA" />
+            <Separator />
+            <TextBlock
+                Width="90"
+                FontSize="32"
+                Text="ModA" />
+            <Separator />
+            <TextBlock
+                Width="90"
+                FontSize="32"
+                Text="ModA" />
+            <Separator />
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,42 @@
+﻿<UserControl
+    x:Class="RCMS.App.Views.Login"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Style="{DynamicResource WindowStyle}">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="180" />
+            <ColumnDefinition Width="120" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox
+            Grid.ColumnSpan="2"
+            controls:TextBoxHelper.AutoWatermark="True"
+            controls:TextBoxHelper.UseFloatingWatermark="True"
+            controls:TextBoxHelper.Watermark="Enter a Username"
+            controls:TextBoxHelper.WatermarkAlignment="Center"
+            mat:TextFieldAssist.IncludeSpellingSuggestions="True" />
+
+        <PasswordBox
+            Grid.Row="2"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            controls:PasswordBoxHelper.CapsLockWarningToolTip="Caps Lock is On" />
+        <Button
+            Grid.Row="4"
+            Grid.Column="1"
+            Style="MaterialDesignRaisedLightButton" />
+    </Grid>
+</UserControl>

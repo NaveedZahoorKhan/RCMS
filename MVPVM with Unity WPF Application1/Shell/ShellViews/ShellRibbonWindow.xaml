@@ -1,0 +1,42 @@
+﻿<Window x:Class="MVPVM_with_Unity_WPF_Application1.ShellRibbonWindow"
+	    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MVPVM_with_Unity_WPF_Application1"
+        
+        
+        
+        MinHeight="400" Height="700" MinWidth="380" Width="800"
+        
+        WindowState="Maximized"
+        
+        Title="MVPVM Simple demo Application"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        TextOptions.TextFormattingMode="Display" UseLayoutRounding="True"
+        ResizeMode="CanResizeWithGrip"
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance local:ShellViewModel}" d:DesignHeight="300" d:DesignWidth="800">
+
+
+    <Window.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+
+
+
+        </Window.Resources>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+
+
+
+
+        </Grid>
+
+    </Window>
