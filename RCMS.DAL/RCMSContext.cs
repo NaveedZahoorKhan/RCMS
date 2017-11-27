@@ -9,7 +9,7 @@ using RCMS.Models;
 
 namespace RCMS.DAL
 {
-   public class RcmsContext : DbContext
+   public class RcmsContext : DbContext 
     {
         public RcmsContext(string s) : base("name=Main")
         {
@@ -23,6 +23,7 @@ namespace RCMS.DAL
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<User> Users { get; set; }
 
 
         public override int SaveChanges()

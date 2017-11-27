@@ -12,7 +12,7 @@ namespace RCMS.Models
         [MaxLength(40)]
         public string Name { get; set; }
         public string Code { get; set; }
-        
+        public string ShortName { get; set; }
        
         public string Discription { get; set; }
         

@@ -2,6 +2,7 @@
     x:Class="RCMS.App.Views.SideMenu"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:ctrl="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True">
     <StackPanel>
@@ -18,30 +19,53 @@
                 FontSize="42"
                 Text="RCMS" />
             <Separator />
-            <TextBlock
-                Width="90"
+            <Button
+                ctrl:ControlsHelper.ContentCharacterCasing="Normal"
+                Command="{Binding Home}"
+                CommandParameter="Home"
+                Content="Home"
                 FontSize="32"
-                Text="ModA" />
+                Style="{DynamicResource SquareButtonStyle}" />
             <Separator />
-            <TextBlock
-                Width="90"
+            <Button
+                ctrl:ControlsHelper.ContentCharacterCasing="Normal"
+                Command="{Binding Billing}"
+                CommandParameter="Billing"
+                Content="Billing"
                 FontSize="32"
-                Text="ModA" />
+                Style="{DynamicResource SquareButtonStyle}" />
             <Separator />
-            <TextBlock
-                Width="90"
+            <Button
+                ctrl:ControlsHelper.ContentCharacterCasing="Normal"
+                Command="{Binding Sales}"
+                CommandParameter="Sales"
+                Content="Sales"
                 FontSize="32"
-                Text="ModA" />
+                Style="{DynamicResource SquareButtonStyle}" />
             <Separator />
-            <TextBlock
-                Width="90"
+            <Button
+                ctrl:ControlsHelper.ContentCharacterCasing="Normal"
+                Command="{Binding Reports}"
+                CommandParameter="Reports"
+                Content="Reports"
                 FontSize="32"
-                Text="ModA" />
+                Style="{DynamicResource SquareButtonStyle}" />
             <Separator />
-            <TextBlock
-                Width="90"
+            <Button
+                ctrl:ControlsHelper.ContentCharacterCasing="Normal"
+                Command="{Binding Management}"
+                CommandParameter="Management"
+                Content="Management"
                 FontSize="32"
-                Text="ModA" />
+                Style="{DynamicResource SquareButtonStyle}" />
+            <Separator /> 
+            <Button
+                ctrl:ControlsHelper.ContentCharacterCasing="Normal"
+                Command="{Binding Settings}"
+                CommandParameter="Settings"
+                Content="Settings"
+                FontSize="32"
+                Style="{DynamicResource SquareButtonStyle}" />
             <Separator />
         </StackPanel>
     </StackPanel>

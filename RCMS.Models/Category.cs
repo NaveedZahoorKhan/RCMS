@@ -13,7 +13,8 @@ namespace RCMS.Models
         public string  Name { get; set; }
         public string Description { get; set; }
         public string ItemLowerLimit { get; set; }
-
+        public string CategoryImage { get; set; }
+        public string CategoryOrder { get; set; }
         
     }
 }

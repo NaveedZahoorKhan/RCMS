@@ -1,9 +1,48 @@
-﻿<UserControl x:Class="RCMS.App.Views.Billing"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:prism="http://prismlibrary.com/"             
-             prism:ViewModelLocator.AutoWireViewModel="True">
+﻿<UserControl
+    x:Class="RCMS.App.Views.Billing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="http://prismlibrary.com/"
+    prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="250" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0" Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}, Path=ActualHeight}">
+            <StackPanel Orientation="Horizontal">
+                <ListView
+                    Height="350"
+                    Margin="10"
+                    ItemsSource="{Binding ListView1}">
+
+                    <ListView.ItemTemplate>
+
+                        <DataTemplate>
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Image
+                                    Grid.Column="0"
+                                    Width="16"
+                                    Height="16"
+                                    Source="{Binding Img}" />
+
+                                <TextBlock Grid.Column="1" Text="{Binding ShortName}" />
+                                <TextBlock Grid.Column="2" Text="{Binding Price}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <ListView Height="350" Margin="10" />
+                <ListView Height="350" Margin="10" />
+                <ListView Height="350" Margin="10" />
+            </StackPanel>
+        </ScrollViewer>
+        <DockPanel Grid.Row="1" />
     </Grid>
 </UserControl>

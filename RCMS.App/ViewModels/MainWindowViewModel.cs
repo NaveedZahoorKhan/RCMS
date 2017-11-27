@@ -7,8 +7,9 @@ namespace RCMS.App.ViewModels
     {
         private bool _sidemenuwidth;
 
-        public DelegateCommand HamburgerOpened { get; private set; }
-        public DelegateCommand HamburgerClosed { get; private set; }
+        public DelegateCommand MouseEntered { get; set; }
+
+      
 
         public bool SideMenuWidth
         {
@@ -17,21 +18,15 @@ namespace RCMS.App.ViewModels
         }
         public MainWindowViewModel()
         {
-            HamburgerOpened = new DelegateCommand(ToggleMenu);
+            MouseEntered = new DelegateCommand(ToggleMenu);
            
         }
 
        
         private void ToggleMenu()
         {
-            if (SideMenuWidth == true)
-            {
-                SideMenuWidth = false;
-            }
-            else
-            {
-                SideMenuWidth = true;
-            }
+
+            SideMenuWidth = SideMenuWidth != true;
         }
     }
 }

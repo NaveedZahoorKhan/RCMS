@@ -3,78 +3,59 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using RCMS.DAL.Interfaces;
 
 namespace RCMS.DAL.Classes
 {
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
-        internal RcmsContext Context;
-        internal DbSet<TEntity> DbSet;
-
-        public Repository(RcmsContext context)
+        private readonly DbSet<TEntity> _dbSet;
+        public Repository(DbSet<TEntity> dbSet)
         {
-            this.Context = context;
-            this.DbSet = context.Set<TEntity>();
-
+            _dbSet = dbSet;
         }
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "")
+
+        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
         {
-            IQueryable<TEntity> query = DbSet;
+            yield return _dbSet.Find(filter, orderBy);
+        }
 
-            if (filter != null)
-            {
-                query = query.Where(filter);
-            }
+        public IEnumerable<TEntity> GetAll()
+        {
+            return _dbSet.ToList();
+        }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
-            if (orderBy != null)
-            {
-                return orderBy(query).ToList();
-            }
-            else
-            {
-                return query.ToList();
-            }
+        public async Task<List<TEntity>> GetAllAsync()
+        {
+            return await _dbSet.ToListAsync();
         }
 
         public virtual TEntity GetById(object id)
         {
-            return DbSet.Find(id);
+            return _dbSet.Find(id);
         }
 
         public virtual void Insert(TEntity entity)
         {
-            DbSet.Add(entity);
+            _dbSet.Add(entity);
         }
 
         public virtual void Delete(object id)
         {
-            TEntity entityToDelete = DbSet.Find(id);
+            TEntity entityToDelete = _dbSet.Find(id);
             Delete(entityToDelete);
         }
 
         public virtual void Delete(TEntity entityToDelete)
         {
-            if (Context.Entry(entityToDelete).State == EntityState.Detached)
-            {
-                DbSet.Attach(entityToDelete);
-            }
-            DbSet.Remove(entityToDelete);
+            _dbSet.Remove(entityToDelete);
         }
 
         public virtual void Update(TEntity entityToUpdate)
         {
-            DbSet.Attach(entityToUpdate);
-            Context.Entry(entityToUpdate).State = EntityState.Modified;
+           _dbSet.Attach(entityToUpdate);
+            
         }
 
     }

@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-    xmlns:mat="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     Style="{DynamicResource WindowStyle}">
@@ -21,22 +20,51 @@
             <ColumnDefinition Width="120" />
         </Grid.ColumnDefinitions>
 
-        <TextBox
-            Grid.ColumnSpan="2"
-            controls:TextBoxHelper.AutoWatermark="True"
-            controls:TextBoxHelper.UseFloatingWatermark="True"
-            controls:TextBoxHelper.Watermark="Enter a Username"
-            controls:TextBoxHelper.WatermarkAlignment="Center"
-            mat:TextFieldAssist.IncludeSpellingSuggestions="True" />
+        <StackPanel Grid.ColumnSpan="2">
+            <TextBox
+                controls:TextBoxHelper.AutoWatermark="True"
+                controls:TextBoxHelper.ClearTextButton="True"
+                controls:TextBoxHelper.Watermark="Username"
+                controls:TextBoxHelper.WatermarkAlignment="Center"
+                Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <controls:TextBoxHelper.ButtonContent>
+                    <Image
+                        Width="16"
+                        Height="16"
+                        Source="../Resources/Icons/ic_account_circle_black_24dp_1x.png" />
 
-        <PasswordBox
+                </controls:TextBoxHelper.ButtonContent>
+            </TextBox>
+
+        </StackPanel>
+        <TextBox
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            controls:PasswordBoxHelper.CapsLockWarningToolTip="Caps Lock is On" />
-        <Button
+            controls:TextBoxHelper.ClearTextButton="True"
+            controls:TextBoxHelper.Watermark="Password"
+            Text="{Binding Password, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+            <controls:TextBoxHelper.ButtonContent>
+                <Image
+                    Width="16"
+                    Height="16"
+                    Source="../Resources/Icons/ic_vpn_key_black_24dp_1x.png" />
+
+            </controls:TextBoxHelper.ButtonContent>
+
+        </TextBox>
+        <StackPanel
             Grid.Row="4"
-            Grid.Column="1"
-            Style="MaterialDesignRaisedLightButton" />
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+
+            <Button
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Command="{Binding Home, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                CommandParameter="Home"
+                Content="Login"
+                Style="{DynamicResource SquareButtonStyle}" />
+        </StackPanel>
     </Grid>
 </UserControl>

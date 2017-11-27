@@ -1,45 +1,32 @@
 ﻿using System;
+using System.Data.Entity;
+using RCMS.DAL.Interfaces;
 using RCMS.Models;
 
 namespace RCMS.DAL.Classes
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : RcmsContext, IUnitOfWork
     {
-        private RcmsContext Context = new RcmsContext("name = Main");
-        private Repository<Item> _itemRepository;
-        private Repository<Customers> _customerRepository;
-        private Repository<Addresses> _addressRepository;
-        private Repository<Category> _categoryRepository;
-        private Repository<Order> _orderRepository;
+        private readonly Repository<Category> _categoryRepository;
+        private readonly Repository<User> _userRepository;
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Customers> Customers { get; set; }
+        public DbSet<User> Users { get; set; }
 
-        public Repository<Item> ItemRepository => this._itemRepository ?? new Repository<Item>(Context);
-        public Repository<Customers> CustomerRepository => this._customerRepository ?? new Repository<Customers>(Context);
-        public Repository<Addresses> AddressRepository => this._addressRepository ?? new Repository<Addresses>(Context);
-        public Repository<Category> CategoryRepository => this._categoryRepository ?? new Repository<Category>(Context);
-        public Repository<Order> OrderRepository => this._orderRepository ?? new Repository<Order>(Context);
-
-        public void Save()
+        public UnitOfWork()
         {
-            Context.SaveChanges();
+            _categoryRepository = new Repository<Category>(Categories);
+            _userRepository = new Repository<User>(Users);
+
         }
 
-        private bool disposed;
-        protected virtual void Dispose(bool disposing)
+        public IRepository<Category> CategoryRepository { get { return _categoryRepository; } }
+        public IRepository<User> UserRepository { get { return _userRepository; } }
+
+        public void Commit()
         {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    Context.Dispose();
-                }
-            }
-            this.disposed = true;
-            
+            this.SaveChanges();
         }
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(true);
-        }
+
     }
 }
