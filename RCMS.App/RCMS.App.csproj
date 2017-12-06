@@ -36,11 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
@@ -106,6 +106,10 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.15.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.15\lib\net\WpfAnimatedGif.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -121,6 +125,12 @@
     <Compile Include="ViewModels\PurchasesViewModel.cs" />
     <Compile Include="ViewModels\SalesViewModel.cs" />
     <Compile Include="ViewModels\SideMenuViewModel.cs" />
+    <Compile Include="Views\CustomeFlyoutWithMenu.xaml.cs">
+      <DependentUpon>CustomeFlyoutWithMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomeListView.xaml.cs">
+      <DependentUpon>CustomeListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
     </Compile>
@@ -140,6 +150,14 @@
       <DependentUpon>SideMenu.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\Billing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomeFlyoutWithMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CustomeListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -278,7 +296,25 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\newspaper.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\00-best-backgrounds-and-wallpaper-apps-for-android.jpg" />
+    <Resource Include="Resources\n5AtNet.png" />
+    <Resource Include="Resources\92-1024x576.jpg" />
+    <Content Include="Resources\video\video.wmv" />
+    <Resource Include="Resources\wallpaper.wiki-Creative-3D-box-HD-Wallpaper-PIC-WPD009738.jpg" />
+    <Resource Include="Resources\gif\miguelco.gif" />
+    <Resource Include="Resources\gif\rafaelvarona.gif" />
+    <Resource Include="Resources\gif\robindavey.gif" />
+    <Content Include="Resources\video\video.mp4" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

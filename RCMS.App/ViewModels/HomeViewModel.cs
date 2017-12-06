@@ -7,6 +7,7 @@ using System.Windows.Threading;
 using LiveCharts;
 using LiveCharts.Wpf;
 using Prism.Regions;
+using RCMS.App.Views;
 using RCMS.Commons.HelperClasses;
 
 namespace RCMS.App.ViewModels
@@ -62,6 +63,7 @@ namespace RCMS.App.ViewModels
 
         public HomeViewModel(IRegionManager regionManager)
         {
+            regionManager.RegisterViewWithRegion("CustomFlyoutWithRegion", typeof(CustomeFlyoutWithMenu));
             Navigation = new Navigation(regionManager);
             Billing = new DelegateCommand<string>(Navigator);
             Management = new DelegateCommand<string>(Navigator);

@@ -3,6 +3,8 @@ using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mime;
+using System.Windows;
 using Prism.Regions;
 using RCMS.Commons;
 using RCMS.Commons.HelperClasses;
@@ -73,7 +75,8 @@ namespace RCMS.App.ViewModels
             User = users.First(user => user.Name == UserName && Password == user.Password);
             if (User.IsActive)
             {
-                _navigation.Navigate(path);
+                var wind = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive);
+                wind.Close();
             }
         }
             

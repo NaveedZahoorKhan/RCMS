@@ -28,7 +28,8 @@ namespace RCMS.DAL.Classes
 
         public async Task<List<TEntity>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            var res =  await _dbSet.ToListAsync();
+            return res;
         }
 
         public virtual TEntity GetById(object id)
@@ -41,6 +42,7 @@ namespace RCMS.DAL.Classes
             _dbSet.Add(entity);
         }
 
+        
         public virtual void Delete(object id)
         {
             TEntity entityToDelete = _dbSet.Find(id);

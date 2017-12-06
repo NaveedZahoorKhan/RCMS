@@ -14,26 +14,24 @@
     ShowTitleBar="False"
     WindowState="Maximized"
     WindowStyle="None">
+
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout
                 Width="200"
-                Header="Menu"
+                AnimateOnPositionChange="True"
+                AutoCloseInterval="5000"
+                CloseButtonVisibility="Visible"
+                Header="RCMS"
                 IsOpen="{Binding SideMenuWidth}"
                 Position="Left"
-                Theme="Adapt"
-                TitleVisibility="Visible">
+                Theme="Adapt">
                 <local:SideMenu />
             </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
-    <controls:MetroWindow.Resources />
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="90" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
 
+    <StackPanel Orientation="Horizontal">
         <Button
             Width="30"
             Margin="10"
@@ -42,7 +40,9 @@
             Command="{Binding MouseEntered}">
             <fa:FontAwesome Icon="Bars" />
         </Button>
-        <ContentControl Grid.Column="1" prism:RegionManager.RegionName="MainRegion" />
 
-    </Grid>
+
+        <ContentControl MinWidth="1520" prism:RegionManager.RegionName="MainRegion" />
+
+    </StackPanel>
 </controls:MetroWindow>

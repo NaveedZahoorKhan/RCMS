@@ -15,6 +15,11 @@ namespace RCMS.Commons.HelperClasses
             {
                 _regionManager.RequestNavigate("MainRegion", path);
             }
+            if (path != "Login")
+            {
+                
+                _regionManager.RequestNavigate("MainRegion", path);
+            }
         }
     }
 }

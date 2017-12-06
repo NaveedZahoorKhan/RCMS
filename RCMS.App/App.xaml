@@ -15,7 +15,6 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
             <viewModels:BoolToVisibilityConverter
                 x:Key="BoolToVisibilityConverter"
@@ -28,10 +27,10 @@
                         <VisualBrush>
                             <VisualBrush.Visual>
                                 <Grid ClipToBounds="True">
-                                    <Image Source="Resources/NewMathleticsBackground-White-1-1-1.jpg">
-                                        <Image.Effect>
-                                            <BlurEffect Radius="20" />
-                                        </Image.Effect>
+                                    <Image Source="Resources/92-1024x576.jpg">
+                                        <!--                                        <Image.Effect>-->
+                                        <!--                                            <BlurEffect Radius="20" />-->
+                                        <!--                                        </Image.Effect>-->
                                     </Image>
                                 </Grid>
                             </VisualBrush.Visual>
@@ -44,3 +43,4 @@
     </Application.Resources>
 
 </Application>
+

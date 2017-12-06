@@ -2,6 +2,7 @@
 using Prism.Unity;
 using RCMS.App.Views;
 using System.Windows;
+using MahApps.Metro.Controls;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
 
@@ -18,6 +19,10 @@ namespace RCMS.App
         protected override void InitializeShell()
         {
           
+            Window window = new Login();
+            window.ShowActivated = true;
+            window.ShowDialog( );
+            
 
 
             Application.Current.MainWindow.Show();

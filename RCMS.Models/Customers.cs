@@ -2,12 +2,16 @@
 
 namespace RCMS.Models
 {
-   public class Customers : ModelBase
+   public class Customer : ModelBase
     {
-        [Required]
-        public string FirstName { get; set; }
-        [Required]
-        public string LastName { get; set; }
+        
+        
+        public virtual User UserId { get; set; }
+        
+        public string Phone { get; set; }
+        public string OrganizationName { get; set; }
+        public string Cell { get; set; }
+            
 
 
     }

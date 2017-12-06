@@ -1,0 +1,22 @@
+﻿<UserControl
+    x:Class="RCMS.App.Views.CustomeFlyoutWithMenu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:fa="http://schemas.fontawesome.io/icons/"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:views="clr-namespace:RCMS.App.Views"
+    prism:ViewModelLocator.AutoWireViewModel="True">
+    <StackPanel Orientation="Vertical">
+        <Button
+            Width="30"
+            Margin="10"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            Command="{Binding MouseEntered}">
+            <fa:FontAwesome Icon="Bars" />
+        </Button>
+
+
+    </StackPanel>
+</UserControl>

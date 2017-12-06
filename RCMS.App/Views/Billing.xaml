@@ -4,14 +4,24 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True">
-    <Grid>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.RowDefinitions>
+            <RowDefinition Height="120" />
             <RowDefinition Height="*" />
             <RowDefinition Height="250" />
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="0" Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}, Path=ActualHeight}">
+        <DockPanel>
+            <TextBox
+                Width="120"
+                Height="60"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center" />
+        </DockPanel>
+        <ScrollViewer Grid.Row="1" Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Border}}, Path=ActualHeight}">
             <StackPanel Orientation="Horizontal">
+
                 <ListView
+                    Width="120"
                     Height="350"
                     Margin="10"
                     ItemsSource="{Binding ListView1}">
@@ -38,9 +48,18 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <ListView Height="350" Margin="10" />
-                <ListView Height="350" Margin="10" />
-                <ListView Height="350" Margin="10" />
+                <ListView
+                    Width="120"
+                    Height="350"
+                    Margin="10" />
+                <ListView
+                    Width="120"
+                    Height="350"
+                    Margin="10" />
+                <ListView
+                    Width="120"
+                    Height="350"
+                    Margin="10" />
             </StackPanel>
         </ScrollViewer>
         <DockPanel Grid.Row="1" />

@@ -4,24 +4,30 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:control="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="clr-namespace:RCMS.App.Views"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
+
     <Grid>
-        <control:MetroTabControl control:TabControlHelper.Transition="Down" control:TabControlHelper.Underlined="SelectedTabItem">
-            <TabItem Header="Product">
+        <control:MetroTabControl control:TabControlHelper.Transition="LeftReplace" control:TabControlHelper.Underlined="SelectedTabItem">
+            <TabItem Margin="3,0,-3,0" Header="Product">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonUp">
+                        <i:InvokeCommandAction Command="{Binding ProductMode}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <Grid>
                     <TabControl>
                         <TabItem Header="New">
                             <Grid
                                 Margin="180"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Top">
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="180" />
-                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="240" />
                                     <ColumnDefinition Width="180" />
 
                                 </Grid.ColumnDefinitions>
@@ -36,40 +42,86 @@
                                     <RowDefinition Height="30" />
                                     <RowDefinition Height="10" />
                                     <RowDefinition Height="30" />
+                                    <RowDefinition Height="10" />
+                                    <RowDefinition Height="30" />
                                 </Grid.RowDefinitions>
+
+                                <Image
+                                    Grid.RowSpan="4"
+                                    Grid.Column="2"
+                                    Width="80"
+                                    Height="80"
+                                    Margin="10,-19,90,19"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Source="{Binding ProductImg}" />
+                                <Button
+                                    Grid.Row="7"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding ProductBrowse}"
+                                    Content="Browse" />
+                                <Button
+                                    Grid.Row="9"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding ProductSave}"
+                                    Content="Save" />
                                 <TextBox
                                     Grid.Row="1"
                                     Grid.Column="0"
                                     control:TextBoxHelper.Watermark="Name"
-                                    Text="{Binding Name}" />
+                                    Text="{Binding ProductName}" />
                                 <TextBox
                                     Grid.Row="3"
                                     Grid.Column="0"
                                     control:TextBoxHelper.Watermark="Code"
-                                    Text="{Binding Code}" />
+                                    Text="{Binding ProductCode}" />
                                 <TextBox
                                     Grid.Row="5"
                                     Grid.Column="0"
                                     control:TextBoxHelper.Watermark="Price"
-                                    Text="{Binding Price}" />
+                                    Text="{Binding ProductPrice}" />
                                 <TextBox
                                     Grid.Row="7"
                                     Grid.Column="0"
                                     control:TextBoxHelper.Watermark="Discount"
-                                    Text="{Binding Discount}" />
-                                <TextBox
+                                    Text="{Binding ProductDiscount}" />
+                                <control:ProgressRing
+                                    Grid.Row="3"
+                                    Grid.RowSpan="4"
+                                    Grid.Column="1"
+                                    Visibility="{Binding RingVisibility, Mode=TwoWay, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}" />
+                                <ComboBox
                                     Grid.Row="9"
                                     Grid.Column="0"
-                                    control:TextBoxHelper.Watermark="Short Name"
-                                    Text="{Binding ShortName}" />
-
+                                    control:ComboBoxHelper.CharacterCasing="Normal"
+                                    control:ComboBoxHelper.EnableVirtualizationWithGrouping="True"
+                                    control:TextBoxHelper.Watermark="Product Unit"
+                                    DisplayMemberPath="Unit"
+                                    IsEditable="True"
+                                    IsSynchronizedWithCurrentItem="True"
+                                    ItemsSource="{Binding PUnit, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding SelectedProductUnit}" />
+                                <ComboBox
+                                    Grid.Row="11"
+                                    Grid.Column="0"
+                                    control:ComboBoxHelper.CharacterCasing="Normal"
+                                    control:ComboBoxHelper.EnableVirtualizationWithGrouping="True"
+                                    control:TextBoxHelper.Watermark="Product Category"
+                                    DisplayMemberPath="Name"
+                                    IsEditable="True"
+                                    ItemsSource="{Binding ProductCategory}"
+                                    SelectedItem="SelectedProductCategory" />
                             </Grid>
                         </TabItem>
                         <TabItem Header="List">
                             <DataGrid
                                 control:DataGridRowHelper.SelectionUnit="FullRow"
                                 AutoGenerateColumns="True"
-                                ItemsSource="{Binding ItemsList}" />
+                                ItemsSource="{Binding ItemsList.Result, IsAsync=True}" />
                         </TabItem>
                     </TabControl>
                 </Grid>
@@ -77,44 +129,38 @@
             <TabItem Header="Category">
                 <Grid>
                     <control:MetroTabControl>
-                        <control:MetroTabItem Header="List">
-                            <Grid>
-                                <DataGrid
-                                    control:DataGridHelper.EnableCellEditAssist="True"
-                                    control:DataGridRowHelper.SelectionUnit="FullRow"
-                                    AutoGenerateColumns="True"
-                                    ItemsSource="{Binding Res, IsAsync=True, AsyncState=State, Delay=50}" />
-                            </Grid>
-                        </control:MetroTabItem>
                         <control:MetroTabItem Header="New">
                             <Grid
-                                Margin="50"
+                                Margin="150"
                                 HorizontalAlignment="Center"
-                                VerticalAlignment="Top">
+                                VerticalAlignment="Center">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="300" />
                                     <ColumnDefinition Width="300" />
 
 
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="10" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="10" />
-                                    <RowDefinition Height="30" />
-                                    <RowDefinition Height="10" />
-                                    <RowDefinition Height="30" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="35" />
+                                    <RowDefinition Height="20" />
+                                    <RowDefinition Height="35" />
                                     <RowDefinition Height="80" />
                                 </Grid.RowDefinitions>
                                 <Image
                                     Grid.Row="0"
                                     Grid.RowSpan="3"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
                                     Source="{Binding Img}" />
                                 <Button
                                     Grid.Row="4"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Command="{Binding Browse}"
@@ -122,7 +168,7 @@
                                     Style="{DynamicResource SquareButtonStyle}" />
                                 <Button
                                     Grid.Row="6"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     Width="50"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -147,13 +193,12 @@
                                     Grid.Row="4"
                                     Grid.Column="0"
                                     Width="180"
-                                    control:ComboBoxHelper.CharacterCasing="Normal"
                                     control:ComboBoxHelper.EnableVirtualizationWithGrouping="True"
-                                    DisplayMemberPath="CategoryOrder"
-                                    ItemsSource="{Binding Res, IsAsync=True}" />
+                                    control:TextBoxHelper.Watermark="Order"
+                                    IsEditable="True"
+                                    ItemsSource="{Binding CategoryOrder}" />
                                 <TextBox
                                     Grid.Row="6"
-                                    Grid.RowSpan="2"
                                     Grid.Column="0"
                                     control:TextBoxHelper.ClearTextButton="True"
                                     control:TextBoxHelper.Watermark="Discription"
@@ -161,14 +206,167 @@
                             </Grid>
 
                         </control:MetroTabItem>
+                        <control:MetroTabItem Header="List">
+                            <Grid>
+                                <Grid.Resources />
+                                <DataGrid x:Name="XamDataGrid" ItemsSource="{Binding CategoryList.Result, IsAsync=True}" />
+                            </Grid>
+                        </control:MetroTabItem>
+
                     </control:MetroTabControl>
                 </Grid>
             </TabItem>
-            <TabItem Header="User" />
+
+            <TabItem Header="User">
+                <control:MetroTabControl control:TabControlHelper.Transition="RightReplace" control:TabControlHelper.Underlined="SelectedTabItem">
+                    <control:MetroTabItem Header="New">
+                        <Grid
+                            Margin="150"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                                <RowDefinition />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="240" />
+                                <ColumnDefinition />
+
+                            </Grid.ColumnDefinitions>
+                            <TextBox
+                                Width="240"
+                                control:TextBoxHelper.Watermark="Name"
+                                AutoWordSelection="True"
+                                Text="{Binding UserName}" />
+                            <TextBox
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                control:TextBoxHelper.Watermark="Password"
+                                Text="{Binding Password}" />
+                            <TextBox
+                                Grid.Row="4"
+                                Grid.Column="0"
+                                control:TextBoxHelper.Watermark="Cell"
+                                Text="{Binding UserCell}" />
+                            <TextBox
+                                Grid.Row="6"
+                                Grid.Column="0"
+                                control:TextBoxHelper.Watermark="Phone"
+                                Text="{Binding UserPhone}" />
+                            <TextBox
+                                Grid.Row="8"
+                                Grid.Column="0"
+                                control:TextBoxHelper.Watermark="City"
+                                Text="{Binding City}" />
+                            <TextBox
+                                Grid.Row="10"
+                                Grid.Column="0"
+                                control:TextBoxHelper.Watermark="Address"
+                                Text="{Binding UserAddress}" />
+                            <TextBox
+                                Grid.Row="12"
+                                Grid.Column="0"
+                                control:TextBoxHelper.Watermark="Designation"
+                                Text="{Binding Designation}" />
+                            <Image
+                                Grid.Row="1"
+                                Grid.RowSpan="6"
+                                Grid.Column="2"
+                                Width="120"
+                                Height="120"
+                                Source="{Binding UserImg}" />
+                            <Button
+                                Grid.Row="8"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{Binding UserBrowse}"
+                                Content="Browse" />
+                            <Button
+                                Grid.Row="10"
+                                Grid.Column="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Command="{Binding SaveUser}"
+                                Content="Save" />
+
+                        </Grid>
+                    </control:MetroTabItem>
+                    <control:MetroTabItem Header="List">
+                        <Grid>
+                            <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Users}">
+                                <DataGridTextColumn Header="Name" />
+
+                            </DataGrid>
+                        </Grid>
+                    </control:MetroTabItem>
+                </control:MetroTabControl>
+            </TabItem>
+            <TabItem Header="Product Unit">
+                <control:MetroAnimatedSingleRowTabControl>
+                    <control:MetroTabItem Header="New">
+                        <Grid>
+                            <StackPanel
+                                Margin="88,66,272,294"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <TextBox
+                                    Height="35"
+                                    MinWidth="240"
+                                    control:TextBoxHelper.Watermark="Product Unit"
+                                    Text="{Binding PUUnit}" />
+                                <Separator Height="40" />
+                                <TextBox
+                                    Height="35"
+                                    MinWidth="240"
+                                    control:TextBoxHelper.Watermark="Product Unit"
+                                    Text="{Binding PUFullName}" />
+
+                            </StackPanel>
+                            <StackPanel
+                                Margin="0,225,0,219"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                <Button
+                                    Width="90"
+                                    Height="30"
+                                    Margin="255,0"
+                                    Command="{Binding PUSave}"
+                                    Content="Save" />
+                            </StackPanel>
+                        </Grid>
+                    </control:MetroTabItem>
+                    <control:MetroTabItem Header="List">
+                        <DataGrid AutoGenerateColumns="True" ItemsSource="{Binding PUnit, UpdateSourceTrigger=PropertyChanged}" />
+                    </control:MetroTabItem>
+                </control:MetroAnimatedSingleRowTabControl>
+            </TabItem>
         </control:MetroTabControl>
 
     </Grid>
 </UserControl>
+
+
+
+
 
 
 

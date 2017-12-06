@@ -10,11 +10,15 @@ namespace RCMS.Models
     {
         [MaxLength(40), Required]
         public string Name { get; set; }
-        [Required]
+       
         public string Password { get; set; }
         public string Designation { get; set; }
         [DefaultValue(true)]
         public bool IsActive { get; set; }
        
+
+        // Foreign Keys 
+        public virtual Addresses Addresses { get; set; }
+
     }
 }
