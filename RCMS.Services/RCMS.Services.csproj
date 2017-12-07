@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>e9d6571c-35cb-432b-b242-3d85bb98cdb1</ProjectGuid>
+    <ProjectGuid>{E9D6571C-35CB-432B-B242-3D85BB98CDB1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>RCMS.Services</RootNamespace>
@@ -30,24 +30,55 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="AddressesService.cs" />
+    <Compile Include="CategoryService.cs" />
+    <Compile Include="CustomerService.cs" />
+    <Compile Include="ExpenseService.cs" />
+    <Compile Include="ExpenseTypeService.cs" />
+    <Compile Include="InvoiceDetailService.cs" />
+    <Compile Include="InvoiceMainService.cs" />
+    <Compile Include="ItemService.cs" />
+    <Compile Include="Interfaces\IProductUnitService.cs" />
+    <Compile Include="Interfaces\IInvoiceMainService.cs" />
+    <Compile Include="Interfaces\IInvoiceDetailService.cs" />
+    <Compile Include="Interfaces\IExpenseTypeService.cs" />
+    <Compile Include="Interfaces\IPaymentService.cs" />
+    <Compile Include="Interfaces\ICustomerService.cs" />
+    <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\IItemService.cs" />
+    <Compile Include="Interfaces\IExpenseService.cs" />
+    <Compile Include="Interfaces\IAddressesService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Interfaces\IReceiveablesService.cs" />
+    <Compile Include="Interfaces\IVendorService.cs" />
+    <Compile Include="PaymentService.cs" />
+    <Compile Include="ProductUnitService.cs" />
+    <Compile Include="ReceiveablesService.cs" />
+    <Compile Include="IService.cs" />
+    <Compile Include="ServiceBase.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="VendorService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RCMS.DAL\RCMS.DAL.csproj">
+      <Project>{53FA86A4-C7A7-4EED-9440-BB790BEE3DB3}</Project>
+      <Name>RCMS.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\RCMS.Models\RCMS.Models.csproj">
+      <Project>{34418058-5BB9-4D78-AA07-7633E86F26C7}</Project>
+      <Name>RCMS.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +88,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>

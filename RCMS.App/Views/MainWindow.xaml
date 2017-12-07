@@ -8,7 +8,6 @@
     xmlns:local="clr-namespace:RCMS.App.Views"
     xmlns:prism="http://prismlibrary.com/"
     Title="{Binding Title}"
-    prism:ViewModelLocator.AutoWireViewModel="True"
     Background="#E9E9E9"
     LeftWindowCommandsOverlayBehavior="Flyouts"
     ShowTitleBar="False"

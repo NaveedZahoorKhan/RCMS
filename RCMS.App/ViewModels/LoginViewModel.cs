@@ -1,16 +1,10 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mime;
-using System.Windows;
 using Prism.Regions;
-using RCMS.Commons;
 using RCMS.Commons.HelperClasses;
 using RCMS.DAL;
-using RCMS.DAL.Classes;
-using RCMS.DAL.Interfaces;
+using RCMS.DAL.Infrastructure;
+using RCMS.DAL.Infrastructure.Interfaces;
 using RCMS.Models;
 
 namespace RCMS.App.ViewModels
@@ -59,7 +53,6 @@ namespace RCMS.App.ViewModels
         public LoginViewModel(IRegionManager regionManager)
         {
           
-            _unitOfWork = new UnitOfWork(new RcmsContext());
             _navigation = new Navigation(regionManager);
            
             Home = new DelegateCommand<string>(AttemptLogin );

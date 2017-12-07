@@ -49,16 +49,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\UnitOfWork.cs" />
-    <Compile Include="Classes\UserRepository.cs" />
-    <Compile Include="Interfaces\ICategoryRepository.cs" />
-    <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Classes\Repository.cs" />
-    <Compile Include="Interfaces\IUnitOfWork.cs" />
-    <Compile Include="Interfaces\IUserRepository.cs" />
+    <Compile Include="Exceptions\FormattedDbEntityValidationException.cs" />
+    <Compile Include="Infrastructure\CheckAndMigrateDatabaseToLatestVersion.cs" />
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\Interfaces\IDbFactory.cs" />
+    <Compile Include="Infrastructure\Interfaces\IRepository.cs" />
+    <Compile Include="Infrastructure\Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RCMSContext.cs" />
+    <Compile Include="Repositories\AddressesRepository.cs" />
+    <Compile Include="Repositories\CategoryRepository.cs" />
+    <Compile Include="Repositories\CustomerRepository.cs" />
+    <Compile Include="Repositories\ExpenseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IAddressesRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICategoryRepository.cs" />
+    <Compile Include="Repositories\Interfaces\ICustomerRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IExpenseRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IExpenseTypeRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IInvoiceDetailRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IInvoiceMasterRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IItemRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPaymentRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IProductUnitsRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IReceiveablesRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IVendorRepository.cs" />
+    <Compile Include="Repositories\ExpenseTypeRepository.cs" />
+    <Compile Include="Repositories\InvoiceDetailRepository.cs" />
+    <Compile Include="Repositories\InvoiceMasterRepository.cs" />
+    <Compile Include="Repositories\ItemRepository.cs" />
+    <Compile Include="Repositories\PaymentRepository.cs" />
+    <Compile Include="Repositories\ProductUnitRepository.cs" />
+    <Compile Include="Repositories\ReceiveablesRepository.cs" />
+    <Compile Include="Repositories\UserRepository.cs" />
+    <Compile Include="Repositories\VendorRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -69,6 +97,10 @@
       <Project>{34418058-5bb9-4d78-aa07-7633e86f26c7}</Project>
       <Name>RCMS.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Configurations\" />
+    <Folder Include="Seeders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

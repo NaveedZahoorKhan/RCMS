@@ -4,13 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Threading;
 using Microsoft.Practices.Unity;
 using Microsoft.Win32;
-using RCMS.DAL.Classes;
-using RCMS.DAL.Interfaces;
+using Prism.Events;
+using RCMS.DAL.Infrastructure.Interfaces;
 using RCMS.Models;
+using RCMS.Services.Interfaces;
 
 namespace RCMS.App.ViewModels
 {
@@ -45,7 +44,7 @@ namespace RCMS.App.ViewModels
         private string _img;
         private string _lowerlimit;
         private IEnumerable<Category> _categorylist;
-
+        private ICategoryService _categoryService;
         #endregion
 
         #region Product
@@ -176,8 +175,6 @@ namespace RCMS.App.ViewModels
             };
            
             //    category.CategoryOrder = OrderBy[0].CategoryOrder;
-            _unitOfWork.Repository<Category>();
-            _unitOfWork.SaveChanges();
              InitVals();
         }
 
@@ -197,33 +194,28 @@ namespace RCMS.App.ViewModels
                 .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
         
-        public ManagementViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
+        public ManagementViewModel( IEventAggregator eventAggregator, ICategoryService categoryService1)
         {
-            _unitOfWork = container.Resolve<IUnitOfWork>();
-            //            if (OrderBy.Count  <= 0)
-            //            {
-            //              var cat =   new Category() {CategoryOrder = 1.ToString()};
-            //               OrderBy.Add (cat);
-            //            }
+            _categoryService = categoryService1;
             ProductSave = new DelegateCommand(SaveProduct);
             Save = new DelegateCommand(SaveCategory);
             Browse = new DelegateCommand(() => Img = RaiseBrowseWindow());
             ProductBrowse = new DelegateCommand(() => ProductImg = RaiseBrowseWindow());
             Thread thread = new Thread(PopulateCategories);
             thread.Start();
-            Thread thread2 = new Thread(() => ItemList = _unitOfWork.Repository<Item>().GetAll().ToList());
-            thread2.Start();
+//            Thread thread2 = new Thread(() => ItemList = _unitOfWork.Repository<Item>().GetAll().ToList());
+//            thread2.Start();
             Thread thread3 = new Thread( GetProductUnit);
             thread3.Start();
             PUSave = new DelegateCommand(SaveProductUnit);
-            Thread thread4 = new Thread(() => PUnit = _unitOfWork.Repository<ProductUnit>().GetAll().ToList());
-            thread4.Start();
-            new Thread( () => ProductCategory = _unitOfWork.Repository<Category>().GetAll().ToList()).Start();
+//            Thread thread4 = new Thread(() => PUnit = _unitOfWork.Repository<ProductUnit>().GetAll().ToList());
+//            thread4.Start();
+//            new Thread( () => ProductCategory = _unitOfWork.Repository<Category>().GetAll().ToList()).Start();
         }
 
         private void GetProductUnit()
         {
-            ProductUnit= _unitOfWork.Repository<ProductUnit>().GetAll();
+//            ProductUnit= _unitOfWork.Repository<ProductUnit>().GetAll();
          
             RingVisibility = false;
         }
@@ -232,8 +224,8 @@ namespace RCMS.App.ViewModels
             Models.ProductUnit productUnit = new ProductUnit();
             productUnit.Unit = PUUnit;
             productUnit.UnitFullName = PUName;
-            _unitOfWork.Repository<ProductUnit>().Add(productUnit);
-            _unitOfWork.SaveChanges();
+//            _unitOfWork.Repository<ProductUnit>().Add(productUnit);
+//            _unitOfWork.SaveChanges();
            
         }
         private void SaveProduct()
@@ -246,7 +238,7 @@ namespace RCMS.App.ViewModels
             item.Name = ProductName;
             item.Price = ProductPrice;
             
-           _unitOfWork.Repository<Item>().Add(item);
+//           _unitOfWork.Repository<Item>().Add(item);
         }
 
         private string RaiseBrowseWindow()
