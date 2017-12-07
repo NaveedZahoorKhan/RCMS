@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:prism="http://prismlibrary.com/"
+        xmlns:prism="http://prismlibrary.com/"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
 
@@ -209,7 +209,7 @@
                         <control:MetroTabItem Header="List">
                             <Grid>
                                 <Grid.Resources />
-                                <DataGrid x:Name="XamDataGrid" ItemsSource="{Binding CategoryList.Result, IsAsync=True}" />
+                                <DataGrid x:Name="XamDataGrid" ItemsSource="{Binding CategoryList}" />
                             </Grid>
                         </control:MetroTabItem>
 

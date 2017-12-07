@@ -1,10 +1,14 @@
-﻿using System.Reflection;
+﻿using System.Data.Entity;
+using System.Reflection;
 using Prism.Unity;
 using RCMS.App.Views;
 using System.Windows;
 using MahApps.Metro.Controls;
 using Microsoft.Practices.Unity;
 using Prism.Regions;
+using RCMS.DAL;
+using RCMS.DAL.Classes;
+using RCMS.DAL.Interfaces;
 
 namespace RCMS.App
 {
@@ -19,9 +23,9 @@ namespace RCMS.App
         protected override void InitializeShell()
         {
           
-            Window window = new Login();
-            window.ShowActivated = true;
-            window.ShowDialog( );
+//            Window window = new Login();
+//            window.ShowActivated = true;
+           // window.ShowDialog( );
             
 
 
@@ -34,6 +38,22 @@ namespace RCMS.App
             Container.RegisterTypeForNavigation<Home>();
             Container.RegisterTypeForNavigation<Orders>();
             Container.RegisterTypeForNavigation<Purchases>();
+        }
+
+        protected override void ConfigureViewModelLocator()
+        {
+            base.ConfigureViewModelLocator();
+        }
+
+        protected override void ConfigureContainer()
+        {
+            base.ConfigureContainer();
+               DbContext entities = new RcmsContext();
+            Container.RegisterInstance(entities);
+            Container.RegisterType<IUnitOfWork, UnitOfWork>();
+            UnitOfWork unitOfWork = new UnitOfWork(entities);
+            Container.RegisterInstance(unitOfWork);
+
         }
     }
 }

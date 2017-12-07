@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -8,56 +9,62 @@ using RCMS.DAL.Interfaces;
 
 namespace RCMS.DAL.Classes
 {
-    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
+    public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbSet<TEntity> _dbSet;
-        public Repository(DbSet<TEntity> dbSet)
-        {
-            _dbSet = dbSet;
-        }
+        private readonly DbContext entities = null;
+        private DbSet<T> _objectSet;
 
-        public IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null, string includeProperties = "")
+        public Repository(DbContext _entities)
         {
-            yield return _dbSet.Find(filter, orderBy);
+            entities = _entities;
+            _objectSet = entities.Set<T>();
         }
-
-        public IEnumerable<TEntity> GetAll()
+        /// <summary>
+        /// Get all the list
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public IEnumerable<T> GetAll(Func<T, bool> predicate = null)
         {
-            return _dbSet.ToList();
+            if (predicate != null)
+            {
+                return _objectSet.Where(predicate);
+            }
+
+            return _objectSet.AsEnumerable();
         }
-
-        public async Task<List<TEntity>> GetAllAsync()
+        /// <summary>
+        /// Get a certain element of the list
+        /// </summary>
+        /// <param name="predicate"></param>
+        /// <returns></returns>
+        public T Get(Func<T, bool> predicate)
         {
-            var res =  await _dbSet.ToListAsync();
-            return res;
+            return _objectSet.First(predicate);
         }
-
-        public virtual TEntity GetById(object id)
+        /// <summary>
+        /// Add a new element to the list
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Add(T entity)
         {
-            return _dbSet.Find(id);
+            _objectSet.Add(entity);
         }
-
-        public virtual void Insert(TEntity entity)
+        /// <summary>
+        /// Update a certain element
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Attach(T entity)
         {
-            _dbSet.Add(entity);
+            _objectSet.AddOrUpdate(entity);
         }
-
-        
-        public virtual void Delete(object id)
+        /// <summary>
+        /// Delete an element from the list
+        /// </summary>
+        /// <param name="entity"></param>
+        public void Delete(T entity)
         {
-            TEntity entityToDelete = _dbSet.Find(id);
-            Delete(entityToDelete);
-        }
-
-        public virtual void Delete(TEntity entityToDelete)
-        {
-            _dbSet.Remove(entityToDelete);
-        }
-
-        public virtual void Update(TEntity entityToUpdate)
-        {
-           _dbSet.Attach(entityToUpdate);
-            
+            _objectSet.Remove(entity);
         }
 
     }

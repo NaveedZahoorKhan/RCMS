@@ -8,6 +8,7 @@ using System.Windows;
 using Prism.Regions;
 using RCMS.Commons;
 using RCMS.Commons.HelperClasses;
+using RCMS.DAL;
 using RCMS.DAL.Classes;
 using RCMS.DAL.Interfaces;
 using RCMS.Models;
@@ -58,7 +59,7 @@ namespace RCMS.App.ViewModels
         public LoginViewModel(IRegionManager regionManager)
         {
           
-            _unitOfWork = new UnitOfWork();
+            _unitOfWork = new UnitOfWork(new RcmsContext());
             _navigation = new Navigation(regionManager);
            
             Home = new DelegateCommand<string>(AttemptLogin );
@@ -71,13 +72,13 @@ namespace RCMS.App.ViewModels
 
         private void AttemptLogin(string path)
         {
-            IEnumerable<User> users = _unitOfWork.UserRepository.GetAll();
-            User = users.First(user => user.Name == UserName && Password == user.Password);
-            if (User.IsActive)
-            {
-                var wind = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive);
-                wind.Close();
-            }
+//            IEnumerable<User> users = _unitOfWork.UserRepository.GetAll();
+//            User = users.First(user => user.Name == UserName && Password == user.Password);
+//            if (User.IsActive)
+//            {
+//                var wind = Application.Current.Windows.OfType<Window>().SingleOrDefault(window => window.IsActive);
+//                wind.Close();
+//            }
         }
             
     }

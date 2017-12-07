@@ -58,7 +58,7 @@
                 Content="Management"
                 FontSize="32"
                 Style="{DynamicResource SquareButtonStyle}" />
-            <Separator /> 
+            <Separator />
             <Button
                 ctrl:ControlsHelper.ContentCharacterCasing="Normal"
                 Command="{Binding Settings}"

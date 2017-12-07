@@ -20,6 +20,7 @@ namespace RCMS.DAL
         {
             
         }
+        
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Item> Items { get; set; }
@@ -54,7 +55,8 @@ namespace RCMS.DAL
     {
         public RcmsContext Create()
         {
-         
+            
+            
             return new RcmsContext("name=Main");
         }
         

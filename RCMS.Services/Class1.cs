@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RCMS.DAL.Interfaces
+namespace RCMS.Services
 {
-    interface IUserRepository : IUnitOfWork
+    public class Class1
     {
-        
     }
 }

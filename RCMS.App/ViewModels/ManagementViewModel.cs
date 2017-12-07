@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Threading;
+using Microsoft.Practices.Unity;
 using Microsoft.Win32;
 using RCMS.DAL.Classes;
 using RCMS.DAL.Interfaces;
@@ -43,7 +44,7 @@ namespace RCMS.App.ViewModels
         private string _discription;
         private string _img;
         private string _lowerlimit;
-        private Task<List<Category>> _categorylist;
+        private IEnumerable<Category> _categorylist;
 
         #endregion
 
@@ -57,8 +58,8 @@ namespace RCMS.App.ViewModels
         private double _productdiscount;
         private double _price;
         private string _productImg;
-        private Task<List<ProductUnit>> _productunit;
-        private Task<List<Item>> _itemlist;
+        private IEnumerable<ProductUnit> _productunit;
+        private IEnumerable<Item> _itemlist;
         #endregion
         private bool _ringVisibility;
 
@@ -99,7 +100,7 @@ namespace RCMS.App.ViewModels
             set { SetProperty(ref _lowerlimit, value); }
         }
 
-        public Task<List<Category>> CategoryList
+        public IEnumerable<Category> CategoryList
         {
             get { return _categorylist; }
             set { SetProperty(ref _categorylist, value); }
@@ -140,7 +141,7 @@ namespace RCMS.App.ViewModels
             set { SetProperty(ref _productCategory, value); }
         }
 
-        public Task<List<ProductUnit>> ProductUnit
+        public IEnumerable<ProductUnit> ProductUnit
         {
             get { return _productunit; }
             set { SetProperty(ref _productunit, value); }
@@ -175,15 +176,15 @@ namespace RCMS.App.ViewModels
             };
            
             //    category.CategoryOrder = OrderBy[0].CategoryOrder;
-            _unitOfWork.CategoryRepository.Insert(category);
-            _unitOfWork.CommitAsync();
+            _unitOfWork.Repository<Category>();
+            _unitOfWork.SaveChanges();
              InitVals();
         }
 
         private void PopulateCategories()
         {
-            CategoryList = _unitOfWork.CategoryRepository.GetAllAsync();
-           
+            CategoryList = ProductCategory;
+
         }
         #endregion
 
@@ -196,10 +197,9 @@ namespace RCMS.App.ViewModels
                 .Select(s => s[Random.Next(s.Length)]).ToArray());
         }
         
-        public ManagementViewModel()
+        public ManagementViewModel(IUnityContainer container, IUnitOfWork unitOfWork)
         {
-            _unitOfWork = new UnitOfWork();
-
+            _unitOfWork = container.Resolve<IUnitOfWork>();
             //            if (OrderBy.Count  <= 0)
             //            {
             //              var cat =   new Category() {CategoryOrder = 1.ToString()};
@@ -211,23 +211,20 @@ namespace RCMS.App.ViewModels
             ProductBrowse = new DelegateCommand(() => ProductImg = RaiseBrowseWindow());
             Thread thread = new Thread(PopulateCategories);
             thread.Start();
-            Thread thread2 = new Thread(() => ItemList = _unitOfWork.ItemRepository.GetAllAsync());
+            Thread thread2 = new Thread(() => ItemList = _unitOfWork.Repository<Item>().GetAll().ToList());
             thread2.Start();
             Thread thread3 = new Thread( GetProductUnit);
             thread3.Start();
             PUSave = new DelegateCommand(SaveProductUnit);
-            Thread thread4 = new Thread(() => PUnit = _unitOfWork.ProductUnitRepository.GetAll());
+            Thread thread4 = new Thread(() => PUnit = _unitOfWork.Repository<ProductUnit>().GetAll().ToList());
             thread4.Start();
-            new Thread( () => ProductCategory = _unitOfWork.CategoryRepository.GetAll()).Start();
+            new Thread( () => ProductCategory = _unitOfWork.Repository<Category>().GetAll().ToList()).Start();
         }
 
         private void GetProductUnit()
         {
-            ProductUnit= _unitOfWork.ProductUnitRepository.GetAllAsync();
-            if (!ProductUnit.IsCompleted)
-            {
-                ProductUnit.Wait();
-            }
+            ProductUnit= _unitOfWork.Repository<ProductUnit>().GetAll();
+         
             RingVisibility = false;
         }
         private void SaveProductUnit()
@@ -235,8 +232,8 @@ namespace RCMS.App.ViewModels
             Models.ProductUnit productUnit = new ProductUnit();
             productUnit.Unit = PUUnit;
             productUnit.UnitFullName = PUName;
-            _unitOfWork.ProductUnitRepository.Insert(productUnit);
-            _unitOfWork.CommitAsync();
+            _unitOfWork.Repository<ProductUnit>().Add(productUnit);
+            _unitOfWork.SaveChanges();
            
         }
         private void SaveProduct()
@@ -249,7 +246,7 @@ namespace RCMS.App.ViewModels
             item.Name = ProductName;
             item.Price = ProductPrice;
             
-           _unitOfWork.ItemRepository.Insert(item);
+           _unitOfWork.Repository<Item>().Add(item);
         }
 
         private string RaiseBrowseWindow()
@@ -284,7 +281,7 @@ namespace RCMS.App.ViewModels
             set { _ringVisibility = value; }
         }
 
-        public Task<List<Item>> ItemList
+        public IEnumerable<Item> ItemList
         {
             get { return _itemlist; }
             set { _itemlist = value; }

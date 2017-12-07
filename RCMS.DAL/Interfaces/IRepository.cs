@@ -7,19 +7,12 @@ using System.Threading.Tasks;
 
 namespace RCMS.DAL.Interfaces
 {
-    public interface IRepository<TEntity> where TEntity : class
+    public interface IRepository<T> where T : class
     {
-        IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = "");
-
-        IEnumerable<TEntity> GetAll();
-        Task<List<TEntity>> GetAllAsync();
-        TEntity GetById(object id);
-        void Insert(TEntity entity);
-        void Delete(object id);
-        void Delete(TEntity entityToDelete);
-        void Update(TEntity entityToUpdate);
+        IEnumerable<T> GetAll(Func<T, bool> predicate = null);
+        T Get(Func<T, bool> predicate);
+        void Add(T entity);
+        void Attach(T entity);
+        void Delete(T entity);
     }
 }

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\UnitOfWork.cs" />
+    <Compile Include="Classes\UserRepository.cs" />
     <Compile Include="Interfaces\ICategoryRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Classes\Repository.cs" />
